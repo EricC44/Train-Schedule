@@ -14,6 +14,29 @@ var config = {
   firebase.initializeApp(config);
 
 var database = firebase.database();
+//This is the form listening for the submit button.
+document.querySelector("#train-stuff").addEventListener("submit" , function(event) {
+    event.preventDefault();
+    //These are the values that are trying to be submitted to the form
+    var trainColor = document.querySelector("#train-color-input").value.trim();
+    var trainLine = document.querySelector("#train-line-input").value.trim();
+    var firstTrain = document.querySelector("#first-train-input").value.trim();
+    var frequency = document.querySelector("#frequency-input").value.trim();
+
+    console.log(trainColor , trainLine , firstTrain , frequency);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+});
 
