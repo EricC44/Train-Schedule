@@ -25,12 +25,12 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 
     console.log(trainColor , trainLine , firstTrain , frequency);
     //This uses the reference of the database and pushes the values
-    //database.ref().push({
-        //color: trainColor,
-        //trainline: trainLine,
-        //firstTrain: firstTrain,
-        //frequency: frequency,
-    //});
+    database.ref().push({
+        color: trainColor,
+        trainline: trainLine,
+        firstTrain: firstTrain,
+        frequency: frequency,
+    });
     //This should clear out the values of the form
     document.querySelector("#train-color-input").value = "";
     document.querySelector("#train-line-input").value = "";
