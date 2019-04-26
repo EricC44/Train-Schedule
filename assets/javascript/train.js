@@ -41,3 +41,4 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 
 });
 
+//Planning on adding more features 
