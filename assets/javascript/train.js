@@ -30,13 +30,18 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
     var frequency = document.querySelector("#frequency-input").value.trim();
 
     console.log(trainColor , trainLine , firstTrain , frequency);
-    //This uses the reference of the database and pushes the values
-    database.ref().push({
-        color: trainColor,
+    //make a var for the new data 
+    var newTrain = {
+        trainColor: trainColor,
         trainLine: trainLine,
         firstTrain: firstTrain,
         frequency: frequency,
-    });
+    }
+    //This uses the reference of the database and pushes the values
+    database.ref().push(newTrain);
+
+    console.log(newTrain);
+
     //This should clear out the values of the form
     document.querySelector("#train-color-input").value = "";
     document.querySelector("#train-line-input").value = "";
@@ -47,12 +52,12 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 
 });
 
-//Checks firebase for past values and initially loades them.
-database.ref().on("child_added" , function(childSnapshot) {
-  var trainColor = childSnapshot.value.color;
-  var trainLine = childSnapshot.value.trainLine;
-  var firstTrain = childSnapshot.value.firstTrain;
-  var frequency = childSnapshot.value.frequency;
+//Checks firebase for past values and initially loades them. (Could not figure out the undefined error so Im using jQuery for this part.)
+database.ref().on("child_added" , function(childSnapshot , previousChildKey) {
+  var trainColor = childSnapshot.val().trainColor;
+  var trainLine = childSnapshot.val().trainLine;
+  var firstTrain = childSnapshot.val().firstTrain;
+  var frequency = childSnapshot.value().frequency;
 
   console.log(trainColor);
   console.log(trainLine);
@@ -74,12 +79,14 @@ database.ref().on("child_added" , function(childSnapshot) {
   //our remainder in the calculation.
   var Remainder = timeDiff % frequency;
   console.log(Remainder);
-
+  //This function is to find out how many minutes are left till the next train
   var minutesAway = frequency - Remainder;
   console.log(minutesAway);
-
+  //This will get the next train time of arrival
   var nextTrain = moment().add(minutesAway , "minutes").format("hh:mm a");
-  console.log("The next train will arrive at " + nextTrain);
+  console.log("The next train will arrive at " + moment(nextTrain).format("hh:mm a"));
+
+  
 
 
 
