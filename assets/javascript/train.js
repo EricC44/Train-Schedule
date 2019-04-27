@@ -71,8 +71,18 @@ database.ref().on("child_added" , function(childSnapshot) {
   //diffence between the train frequency and the first train
   var timeDiff = moment().diff(moment(firstTrainFreq) , "minutes");
   console.log("Time difference is " + timeDiff);
+  //our remainder in the calculation.
+  var Remainder = timeDiff % frequency;
+  console.log(Remainder);
 
-  
+  var minutesAway = frequency - Remainder;
+  console.log(minutesAway);
+
+  var nextTrain = moment().add(minutesAway , "minutes").format("hh:mm a");
+  console.log("The next train will arrive at " + nextTrain);
+
+
+
 
 
 });
