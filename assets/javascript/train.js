@@ -14,6 +14,12 @@ var config = {
   firebase.initializeApp(config);
 
 var database = firebase.database();
+//This is our current time 
+window.onload = setInterval(function(start) {
+document.querySelector("#time").innerHTML = moment().format("hh:mm a")
+console.log(start);
+}, 1000);
+
 //This is the form listening for the submit button.
 document.querySelector("#train-stuff").addEventListener("submit" , function(event) {
     event.preventDefault();
@@ -41,4 +47,4 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 
 });
 
-//Planning on adding more features 
+//Planning on adding more features  
