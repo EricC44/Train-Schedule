@@ -17,7 +17,7 @@ var database = firebase.database();
 //This is our current time 
 window.onload = setInterval(function(start) {
 document.querySelector("#time").innerHTML = moment().format("hh:mm a")
-console.log(start);
+//console.log(start);
 }, 1000);
 
 //This is the form listening for the submit button.
@@ -33,7 +33,7 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
     //This uses the reference of the database and pushes the values
     database.ref().push({
         color: trainColor,
-        trainline: trainLine,
+        trainLine: trainLine,
         firstTrain: firstTrain,
         frequency: frequency,
     });
@@ -48,9 +48,32 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 });
 
 //Checks firebase for past values and initially loades them.
-database.ref().addEventListener("add_child" , function(childSnapshot, prev) {
-  var trainColor = childSnapshot.value.formtrainColor;
-  var trainLine = childSnapshot.value.formtrainLine;
-  var firstTrain = childSnapshot.value.formfirstTrain;
-  var frequency = childSnapshot.value.formfrequency;
-});  
+database.ref().on("child_added" , function(childSnapshot) {
+  var trainColor = childSnapshot.value.color;
+  var trainLine = childSnapshot.value.trainLine;
+  var firstTrain = childSnapshot.value.firstTrain;
+  var frequency = childSnapshot.value.frequency;
+
+  console.log(trainColor);
+  console.log(trainLine);
+  console.log(frequency);
+
+
+  
+  //This is to get the first time, I also counted back 10 days before the "current" time.
+  var firstTrainFreq = moment(firstTrain , "hh:mm").subtract(10 , "days");
+  console.log(firstTrainFreq);
+  //This is just a reference for the current time so we can do conversions
+  var currentTime = moment();
+  console.log("The current time is: " + moment(currentTime).format("hh:mm a"));
+  //working on the timer
+  document.querySelector("#time").innerText = currentTime.format("hh:mm a");
+  //diffence between the train frequency and the first train
+  var timeDiff = moment().diff(moment(firstTrainFreq) , "minutes");
+  console.log("Time difference is " + timeDiff);
+
+  
+
+
+});
+
