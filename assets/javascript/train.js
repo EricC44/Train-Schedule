@@ -47,4 +47,10 @@ document.querySelector("#train-stuff").addEventListener("submit" , function(even
 
 });
 
-//Planning on adding more features  
+//Checks firebase for past values and initially loades them.
+database.ref().addEventListener("add_child" , function(childSnapshot, prev) {
+  var trainColor = childSnapshot.value.formtrainColor;
+  var trainLine = childSnapshot.value.formtrainLine;
+  var firstTrain = childSnapshot.value.formfirstTrain;
+  var frequency = childSnapshot.value.formfrequency;
+});  
