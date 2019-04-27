@@ -57,7 +57,7 @@ database.ref().on("child_added" , function(childSnapshot , previousChildKey) {
   var trainColor = childSnapshot.val().trainColor;
   var trainLine = childSnapshot.val().trainLine;
   var firstTrain = childSnapshot.val().firstTrain;
-  var frequency = childSnapshot.value().frequency;
+  var frequency = childSnapshot.val().frequency;
 
   console.log(trainColor);
   console.log(trainLine);
@@ -85,12 +85,21 @@ database.ref().on("child_added" , function(childSnapshot , previousChildKey) {
   //This will get the next train time of arrival
   var nextTrain = moment().add(minutesAway , "minutes").format("hh:mm a");
   console.log("The next train will arrive at " + moment(nextTrain).format("hh:mm a"));
-
   
+  //This is suppose to append to all cells but I'm too tired and annoyed to figure it out...
+  document.querySelector("tbody").append(trainColor);
+  document.querySelector("tbody").append(trainLine);
+  document.querySelector("tbody").append(frequency);
+  document.querySelector("tbody").append(nextTrain);
+  document.querySelector("tbody").append(minutesAway);
+
 
 
 
 
 
 });
+
+
+
 
